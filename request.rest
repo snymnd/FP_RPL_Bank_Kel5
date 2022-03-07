@@ -1,0 +1,17 @@
+GET http://localhost:3000/task
+
+###
+
+POST http://localhost:3000/task Content-Type: application/json
+
+{
+    "name": "Kyle"
+}
+
+###
+
+POST http://localhost:3000/task/login Content-Type: application/json
+
+{
+"name": "Kyle", "password": "password"
+}
