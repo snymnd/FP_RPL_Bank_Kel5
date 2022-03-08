@@ -1,15 +1,26 @@
 const Task = require("../models/Task.model");
 
-const createTask = async (req, res) => {
+const createUser = async (req, res) => {
   try {
-    const task = await Task.create(req.body);
+    const {email, name, NIK, alamat, noTelp, password, saldo, noRek, pinATM} = req.body;
+    const task = await Task.create({
+        email,
+        name,
+        NIK,
+        alamat,
+        noTelp,
+        password,
+        saldo,
+        noRek,
+        pinATM,
+    });
     res.status(201).json({ task });
   } catch (error) {
     res.status(500).json({ msg: error });
   }
 };
 
-const getAllTasks = async (req, res) => {
+const getAllUser = async (req, res) => {
   try {
     const tasks = await Task.find({}); // bisa menggunakan filter pada argumen fungsi find()
     res.status(200).json({ tasks });
@@ -18,10 +29,13 @@ const getAllTasks = async (req, res) => {
   }
 };
 
-const getTask = async (req, res) => {
+const getUser = async (req, res) => {
   try {
     const { id: taskID } = req.params;
-    const task = await Task.findOne({ _id: taskID });
+    const task = await Task.findOne({ _id: taskID },{
+      password: 0,
+      _id:0
+    });
     if (!task) {
       return res.status(404).json({ msg: `No task with id: ${taskID}` });
     }
@@ -31,7 +45,7 @@ const getTask = async (req, res) => {
   }
 };
 
-const deleteTask = async (req, res) => {
+const deleteUser = async (req, res) => {
   try {
     const { id: taskID } = req.params;
     const task = await Task.findOneAndDelete({ _id: taskID });
@@ -45,7 +59,8 @@ const deleteTask = async (req, res) => {
 };
 
 /* metode patch */
-const updateTask = async (req, res) => {
+// Update data diri user
+const updateUser = async (req, res) => {
   try {
     const { id: taskID } = req.params;
     const task = await Task.findOneAndUpdate({ _id: taskID }, req.body, {
@@ -62,21 +77,23 @@ const updateTask = async (req, res) => {
 };
 
 /* metode put */
-const editTask = async (req, res) => {
-  try {
-    const { id: taskID } = req.params;
-    const task = await Task.findOneAndUpdate({ _id: taskID }, req.body, {
-      new: true,
-      runValidators: true,
-      overwrite: true, // ini yang dibutuhkan untuk method put
-    });
-    if (!task) {
-      return res.status(404).json({ msg: `No task with id: ${taskID}` });
-    }
-    res.status(200).json({ task });
-  } catch (error) {
-    res.status(500).json({ msg: error });
-  }
-};
+// const editTask = async (req, res) => {
+//   try {
+//     const { id: taskID } = req.params;
+//     const task = await Task.findOneAndUpdate({ _id: taskID }, req.body, {
+//       new: true,
+//       runValidators: true,
+//       overwrite: true, // ini yang dibutuhkan untuk method put
+//     });
+//     if (!task) {
+//       return res.status(404).json({ msg: `No task with id: ${taskID}` });
+//     }
+//     res.status(200).json({ task });
+//   } catch (error) {
+//     res.status(500).json({ msg: error });
+//   }
+// };
 
-module.exports = { createTask, getAllTasks, getTask, updateTask, editTask, deleteTask };
+
+
+module.exports = { createUser, getAllUser, getUser, updateUser, deleteUser };

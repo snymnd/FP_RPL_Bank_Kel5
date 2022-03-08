@@ -7,16 +7,14 @@ dotenv.config()
 const port = process.env.PORT || 3000;
 
 const tasks = require("./routes/tasks.route");
-const transaksi = require("./routes/transaksi.route");
+const saldo = require("./routes/saldo.route");
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
 //routes
-app.use("/tasks", tasks);
-app.use("/transaksi", transaksi);
-
-
+app.use("/user", tasks);
+app.use("/saldo", saldo);
 
 app.use('/', (req, res)=>{
   res.status(404)
