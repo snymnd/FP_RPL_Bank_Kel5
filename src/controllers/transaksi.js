@@ -7,7 +7,7 @@ const createTransferSaldo = async (req, res) => {
   try {
     const { id: userID } = req.params;
     const pengirim = await Task.findOne({ _id: userID });
-    const penerima = await Task.findOne({ rek : req.body.rek_penerima });
+    const penerima = await Task.findOne({ noRek : req.body.rekPenerima });
     
     if (pengirim.saldo < req.body.nominal) {
         return res.status(400).json({ msg: "saldo tidak cukup" });
@@ -16,11 +16,11 @@ const createTransferSaldo = async (req, res) => {
     let saldoAkhirPenerima = penerima.saldo + req.body.nominal;
     const updatePengirim = { saldo: saldoAkhirPengirim };
     const updatePenerima = { saldo: saldoAkhirPenerima };
-    await Task.findOneAndUpdate({ _id: taskID }, updatePengirim, {
+    await Task.findOneAndUpdate({ _id: userID }, updatePengirim, {
         new: true,
         runValidators: true,
     });
-    await Task.findOneAndUpdate({ _id: taskID }, updatePenerima, {
+    await Task.findOneAndUpdate({ _id: userID }, updatePenerima, {
         new: true,
         runValidators: true,
     });
@@ -31,12 +31,12 @@ const createTransferSaldo = async (req, res) => {
         norek: req.body.rek_pengirim,
         tanggal: new Date(),
         pengirim : {
-            nama: pengirim.nama,
-            rekening: pengirim.rek
+            nama: pengirim.name,
+            rekening: pengirim.noRek
         },
         penerima : {
-            nama: penerima.nama,
-            rekening: penerima.rek
+            nama: penerima.name,
+            rekening: penerima.noRek
         },
         nominal : req.body.nominal
     }
@@ -55,14 +55,14 @@ const createIsiSaldo = async (req, res) => {
     const nasabah = await Task.findOne({ _id: userID });
     let saldoAkhir = nasabah.saldo + req.body.nominal;
     const update = {saldo : saldoAkhir}
-    await Task.findOneAndUpdate({ _id: taskID }, update, {
+    await Task.findOneAndUpdate({ _id: userID }, update, {
       new: true,
       runValidators: true,
     });
     
     const dataTransfer = {
         jenis: "isi",
-        norek: nasabah.rek,
+        norek: nasabah.noRek,
         tanggal: new Date(),
         nominal : req.body.nominal
     }
@@ -93,7 +93,7 @@ const createTarikSaldo = async (req, res) => {
 
     const dataTransfer = {
         jenis: "tarik",
-        norek: nasabah.rek,
+        norek: nasabah.noRek,
         tanggal: new Date(),
         nominal : req.body.nominal
     }
@@ -112,8 +112,8 @@ const getHistoryTransfer = async (req, res) => {
     const { id: userID } = req.params;
     const nasabah = await Task.findOne({ _id: userID });
 
-    const tasks = await Transfer.find({norek : nasabah.rekening}); // bisa menggunakan filter pada argumen fungsi find()
-    return res.status(200).json({ tasks });
+    const transaksi = await Transfer.find({norek : nasabah.noRek}); // bisa menggunakan filter pada argumen fungsi find()
+    return res.status(200).json({ transaksi });
   } catch (error) {
     res.status(500).json({ msg: error });
   }
