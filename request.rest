@@ -1,11 +1,11 @@
-GET http://localhost:3000/task
+GET http://localhost:3000/tasks
 
 ###
 
-POST http://localhost:3000/task Content-Type: application/json
+POST http://localhost:3000/tasks Content-Type: application/json
 
 {
-    "name": "Kyle"
+    "name": "Kyle", "paassword": "password"
 }
 
 ###

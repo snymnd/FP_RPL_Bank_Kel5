@@ -6,14 +6,18 @@ dotenv.config()
 
 const port = process.env.PORT || 3000;
 
+const tasks = require("./routes/tasks.route");
+
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
 
 //routes
+app.use("/tasks", tasks);
 
 
 app.use('/', (req, res)=>{
   res.status(404)
-  return res.status(404).send({ success: false, message: "page hhghg not found" })
+  return res.status(404).send({ success: false, message: "page not found" })
 })
 
 app.use((err, req, res, next) => {
