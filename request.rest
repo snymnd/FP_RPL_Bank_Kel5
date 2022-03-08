@@ -5,7 +5,7 @@ GET http://localhost:3000/task
 POST http://localhost:3000/task Content-Type: application/json
 
 {
-    "name": "Kyle"
+    "name": "Kyle", "paassword": "password"
 }
 
 ###
