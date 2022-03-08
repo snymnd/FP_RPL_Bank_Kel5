@@ -8,6 +8,7 @@ const port = process.env.PORT || 3000;
 
 const tasks = require("./routes/tasks.route");
 const saldo = require("./routes/saldo.route");
+const transaksi = require("./routes/transaksi.route");
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
@@ -15,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 //routes
 app.use("/user", tasks);
 app.use("/saldo", saldo);
+app.use("/transaksi", transaksi);
 
 app.use('/', (req, res)=>{
   res.status(404)
