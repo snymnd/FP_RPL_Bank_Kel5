@@ -16,11 +16,11 @@ const createTransferSaldo = async (req, res) => {
     let saldoAkhirPenerima = penerima.saldo + req.body.nominal;
     const updatePengirim = { saldo: saldoAkhirPengirim };
     const updatePenerima = { saldo: saldoAkhirPenerima };
-    await Task.findOneAndUpdate({ _id: userID }, updatePengirim, {
+    await Task.findOneAndUpdate({ norek: pengirim.noRek }, updatePengirim, {
         new: true,
         runValidators: true,
     });
-    await Task.findOneAndUpdate({ _id: userID }, updatePenerima, {
+    await Task.findOneAndUpdate({ noRek: req.body.rekPenerima }, updatePenerima, {
         new: true,
         runValidators: true,
     });
@@ -28,7 +28,6 @@ const createTransferSaldo = async (req, res) => {
 
     const dataTransfer = {
         jenis: "transfer",
-        norek: req.body.rek_pengirim,
         tanggal: new Date(),
         pengirim : {
             nama: pengirim.name,
@@ -42,7 +41,7 @@ const createTransferSaldo = async (req, res) => {
     }
     const transaksi = await Transaksi.create(dataTransfer);
     
-    return res.status(201).json({ transaksi });
+    return res.status(201).json({ transaksi});
   } catch (error) {
     return res.status(500).json({ msg: error });
   }
@@ -98,7 +97,6 @@ const createTarikSaldo = async (req, res) => {
         nominal : req.body.nominal
     }
     const transaksi = await Transaksi.create(dataTransfer);
-
     res.status(201).json({ transaksi });
   } catch (error) {
     res.status(500).json({ msg: error });
@@ -111,8 +109,7 @@ const getHistoryTransfer = async (req, res) => {
   try {
     const { id: userID } = req.params;
     const nasabah = await Task.findOne({ _id: userID });
-
-    const transaksi = await Transfer.find({norek : nasabah.noRek}); // bisa menggunakan filter pada argumen fungsi find()
+    const transaksi = await Transaksi.find({$or:[{norek : nasabah.noRek}, {'pengirim.rekening':nasabah.noRek}, {'penerima.rekening': nasabah.noRek}]}); // bisa menggunakan filter pada argumen fungsi find()
     return res.status(200).json({ transaksi });
   } catch (error) {
     res.status(500).json({ msg: error });
