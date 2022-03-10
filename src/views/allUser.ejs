@@ -1,0 +1,54 @@
+<%- include('layouts/header') %>
+    <%- include('layouts/nav') %>
+<div class="container max-w-screen-xl mx-auto">
+    <div class="p-4 max-w-screen-md mx-auto bg-white rounded-lg border shadow-md sm:p-8 ">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-bold leading-none text-gray-900 ">All Users</h3>
+        </div>
+        <div class="flow-root">
+            <ul role="list" class="divide-y divide-gray-200 ">
+                <% users.forEach(user => { %>
+                    <li class="py-3 sm:py-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="flex-1 w-64 ">
+                                <a href="/user/<%=user._id%>" class="block flex items-center space-x-4 hover:bg-teal-500 py-1 px-3 rounded-lg">
+                                    <div class="flex-none">
+                                        <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-1.jpg"
+                                            alt="Neil image">
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-sm font-medium text-gray-900 truncate ">
+                                            <%= user.name  %> 
+                                        </p>
+                                        <p class="text-sm text-gray-500 truncate ">
+                                            <%= user.email  %> 
+                                        </p>
+                                    </div>
+                                    <div class="inline-flex items-center text-base font-semibold text-gray-900 ">
+                                        <%= user.saldo %>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="inline-flex items-center text-base font-semibold text-gray-900 ">
+                                <a href="/user/update/<%=user._id%>" class="bg-sky-500 hover:bg-sky-600 rounded-lg px-2 py-1">
+                                        Edit
+                                </a>
+                            </div>
+                            <div class="inline-flex items-center text-base font-semibold text-gray-900 ">
+                                <a href="/user/delete/<%=user._id%>" class="bg-rose-400 rounded-lg px-2 py-1 hover:bg-red-500">
+                                    Delete
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                <% }) %>
+                
+            </ul>
+        </div>
+    </div>
+    <p class="mt-5">This card component is part of a larger, open-source library of Tailwind CSS components. Learn more
+        by going to the official <a class="text-blue-600 hover:underline"
+            href="https://flowbite.com/docs/getting-started/introduction/" target="_blank">Flowbite Documentation</a>.
+    </p>
+</div>
+<%- include('layouts/footer') %>

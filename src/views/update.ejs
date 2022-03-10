@@ -9,9 +9,9 @@
         <div class="grid  gap-8 grid-cols-1">
 
 
-            <form class="flex flex-col " method="post" action="/user/add" id="regForm">
+            <form class="flex flex-col " method="post" action="/user/update/<%=user._id%>" id="upForm">
                 <div class="flex flex-col sm:flex-row items-center">
-                    <h2 class="font-semibold text-lg mr-auto">Restration Form</h2>
+                    <h2 class="font-semibold text-lg mr-auto">Update Form</h2>
                     <div class="w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0"></div>
                 </div>
                 <div class="mt-5">
@@ -23,7 +23,7 @@
                                 <input placeholder="Full Name"
                                     class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4"
                                     required type="text" name="name"
-                                    id="name">
+                                    id="name" value="<%= user.name  %> ">
                             </div>
                             <div class="mb-3 space-y-2 w-full text-xs">
                                 <label for="email" class="font-semibold text-gray-600 py-2">Email<abbr
@@ -31,7 +31,7 @@
                                 <input placeholder="example@mail.com" 
                                     class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-gray-500 rounded-lg h-10 px-4
                                     invalid:text-pink-700"
-                                    required type="email" name="email" id="email" >
+                                    required type="email" name="email" id="email" value="<%= user.email %> ">
                             </div>
                         </div>
                         <div class="md:flex md:flex-row md:space-x-4 w-full text-xs">
@@ -39,27 +39,27 @@
                                 <label for="NIK" class="font-semibold text-gray-600 py-2">NIK</label>
                                 <input placeholder="123467898" 
                                     class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4"
-                                    type="text" inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')" name="NIK" id="NIK" required>
+                                    type="text" inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')" name="NIK" id="NIK" value="<%= user.NIK %>" required>
                             </div>
                             <div class="w-full flex flex-col mb-3">
                                 <label for="noTelp" class="font-semibold text-gray-600 py-2">Nomor Telepon<abbr
                                         title="required">*</abbr></label>
                                 <input placeholder="08123456789"
                                     class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4"
-                                    type="tel" inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')" name="noTelp" id="noTelp" required>
+                                    type="tel" inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')" name="noTelp" id="noTelp" value="<%= user.noTelp %>" required>
                             </div>
                         </div>
                         <div class="mb-3 space-y-2 w-full text-xs">
                             <label for="alamat"  class=" font-semibold text-gray-600 py-2">Alamat</label>
                             <div class="flex flex-wrap w-full mb-4 relative">
-                                <input type="text" name="alamat" id="alamat"
+                                <input type="text" name="alamat" id="alamat" value="<%= user.alamat %>"
                                     class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border h-10 border-grey-light rounded-lg px-3 relative focus:border-blue focus:shadow">
                             </div>
                         </div>
                         <div class="mb-3 space-y-2 w-full text-xs">
                             <label class=" font-semibold text-gray-600 py-2">Saldo Awal</label>
                             <div class="flex flex-wrap w-full mb-4 relative">
-                                <input type="number" required name="saldo" id="saldo"
+                                <input type="number" required value="<%= user.saldo %>" name="saldo" id="saldo"
                                     class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border h-10 border-grey-light rounded-lg px-3 relative focus:border-blue focus:shadow">
                             </div>
                         </div>
@@ -67,14 +67,14 @@
                         <div class="md:flex md:flex-row md:space-x-4 w-full text-xs">
                             <div class="w-full flex flex-col mb-3">
                                 <label for="password" class="font-semibold text-gray-600 py-2">password</label>
-                                <input placeholder="6 minimal character"
+                                <input placeholder="6 minimal character" value="<%= user.password %>"
                                     class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4"
                                     type="password" name="password" id="password" required>
                             </div>
                             <div class="w-full flex flex-col mb-3">
                                 <label for="pinATM" class="font-semibold text-gray-600 py-2">Pin Transaksi<abbr
                                         title="required">*</abbr></label>
-                                <input placeholder="6 minimal number"
+                                <input placeholder="6 minimal number" value="<%= user.pinATM %>"
                                     class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4"
                                     type="text" inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')" id="pinATM" required>
                             </div>
@@ -89,6 +89,7 @@
 
                         </div>
                         <div class="registrationFormAlert" style="color:green;" id="CheckPasswordMatch"></div>
+                        <input type="hidden" value="<%= user.noRek %>" name="noRek">
                         <div class="mt-5 text-right md:space-x-3 md:block flex flex-col-reverse">
                             <button
                                 class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
