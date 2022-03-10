@@ -1,19 +1,27 @@
 const express = require('express')
 const app = express()
+const path = require("path");
 const connectDB = require("./db/connect");
 const dotenv = require("dotenv")
 dotenv.config()
 
 const port = process.env.PORT || 3000;
 
+const index = require("./routes/index.route");
 const tasks = require("./routes/tasks.route");
 const saldo = require("./routes/saldo.route");
 const transaksi = require("./routes/transaksi.route");
+
+//gunakan ejs
+app.set('view engine', 'ejs')
+app.set('views', path.join(__dirname, './views')) //membuat file views diakses respectively di folder yang sama 
+app.use("/static", express.static("./public"));
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
 //routes
+app.use("/", index);
 app.use("/user", tasks);
 app.use("/saldo", saldo);
 app.use("/transaksi", transaksi);

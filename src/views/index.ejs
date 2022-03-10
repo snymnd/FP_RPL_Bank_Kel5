@@ -1,0 +1,54 @@
+<%- include('layouts/header') %>
+    <%- include('layouts/nav') %>
+<style>
+    .pattern {
+        background-image: url("/static/img/dubu-bg.jpg");
+        background-size: cover;
+        background-position: center;
+    }
+</style>
+
+<header class="bg-slate pattern min-h-screen">
+    <div class="container max-w-screen-xl mx-auto">
+        <div class="flex flex-col items-center py-6 lg:h-[32rem] lg:flex-row">
+            <div class="lg:w-1/2">
+                <h2 class="text-4xl font-semibold text-slate-600">BANK<span class="text-teal-500">CRUD</span></h2>
+
+                <h3 class="text-2xl font-semibold text-slate-600">
+                    Hello <span class="text-gray-100">Guest</span>
+                </h3>
+
+                <p class="mt-3 text-slate-600">Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+            </div>
+
+            <div class="flex mt-28 lg:w-1/2 lg:justify-end lg:mt-0">
+                <div class="max-w-sm bg-white rounded-lg ">
+                    <div class="p-5 text-center">
+                        <h2 class="text-2xl font-semibold text-teal-600 fo">Sign In</h2>
+
+                        <form action="#">
+                            <div class="mt-4">
+                                <input
+                                    class="block w-full px-4 py-2 text-gray-700 placeholder-gray-400 bg-white border rounded-md  -600 -gray-500 focus:border-blue-400 r-blue-300 focus:ring-opacity-40 focus:ring-blue-300 focus:outline-none focus:ring"
+                                    type="email" placeholder="Email address" aria-label="Email address">
+                                <input
+                                    class="block w-full px-4 py-2 mt-4 text-gray-700 placeholder-gray-400 bg-white border rounded-md  -600 -gray-500 focus:border-blue-400 r-blue-300 focus:ring-opacity-40 focus:ring-blue-300 focus:outline-none focus:ring"
+                                    type="password" placeholder="Password" aria-label="Password">
+                            </div>
+
+                            <div class="flex items-center justify-between mt-4">
+                                <a href="/users/add" class="text-sm text-gray-600 hover:underline">
+                                    or Register here!
+                                </a>
+
+                                <button
+                                    class="px-4 py-2 font-semibold text-white transition-colors duration-200 transform bg-teal-700 rounded-md hover:bg-gray-800 ay-700 focus:outline-none focus:bg-gray-800 ay-700">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<%- include('layouts/footer') %>
