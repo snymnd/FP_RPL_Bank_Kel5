@@ -41,10 +41,10 @@ const getUser = async (req, res) => {
       password: 0,
       _id:0
     });
-    if (!task) {
-      return res.status(404).json({ msg: `No task with id: ${taskID}` });
-    }
-    res.status(200).json({ task });
+    res.render("user",{
+      user: task
+    })
+    // res.status(200).json({ task });
   } catch (error) {
     res.status(500).json({ msg: error }); // untuk handle jika id nya tidak valid
   }

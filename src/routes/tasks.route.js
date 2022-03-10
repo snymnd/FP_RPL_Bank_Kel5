@@ -13,6 +13,8 @@ const {
 
 router.route("/")
   .get(getAllUser)
+  .post(createUser);
+
 
 router.route("/add")
   .get( (req, res) => {

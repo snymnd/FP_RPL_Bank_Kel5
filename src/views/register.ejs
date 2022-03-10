@@ -2,7 +2,6 @@
     <%- include('layouts/nav') %>
 
 <!-- component -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <div class="relative min-h-screen flex items-center justify-center bg-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 bg-gray-500 bg-no-repeat bg-cover"
     style="background-image: url('/static/img/dubu-bg.jpg');">
     <div class="max-w-2xl w-full space-y-8 p-10 bg-white rounded-xl shadow-lg z-10">
@@ -37,7 +36,7 @@
                         <div class="md:flex md:flex-row md:space-x-4 w-full text-xs">
                             <div class="w-full flex flex-col mb-3">
                                 <label for="NIK" class="font-semibold text-gray-600 py-2">NIK</label>
-                                <input placeholder="123467898" 
+                                <input placeholder="123467898"
                                     class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4"
                                     type="text" inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')" name="NIK" id="NIK" required>
                             </div>
@@ -52,14 +51,14 @@
                         <div class="mb-3 space-y-2 w-full text-xs">
                             <label for="alamat"  class=" font-semibold text-gray-600 py-2">Alamat</label>
                             <div class="flex flex-wrap w-full mb-4 relative">
-                                <input type="text" name="alamat" id="alamat"
+                                <input type="text" name="alamat" id="alamat" required
                                     class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border h-10 border-grey-light rounded-lg px-3 relative focus:border-blue focus:shadow">
                             </div>
                         </div>
                         <div class="mb-3 space-y-2 w-full text-xs">
                             <label class=" font-semibold text-gray-600 py-2">Saldo Awal</label>
                             <div class="flex flex-wrap w-full mb-4 relative">
-                                <input type="number" required name="saldo" id="saldo"
+                                <input type="number" required name="saldo" id="saldo" required
                                     class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border h-10 border-grey-light rounded-lg px-3 relative focus:border-blue focus:shadow">
                             </div>
                         </div>
@@ -90,9 +89,9 @@
                         </div>
                         <div class="registrationFormAlert" style="color:green;" id="CheckPasswordMatch"></div>
                         <div class="mt-5 text-right md:space-x-3 md:block flex flex-col-reverse">
-                            <button
-                                class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
-                                Cancel </button>
+                            <a href="/" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
+                                Cancel 
+                            </a>
                             <button type="submit" disabled
                                 class="mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-500
                                 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
@@ -108,8 +107,8 @@
         function checkPasswordMatch() {
                 var password = $("#password").val();
                 var confirmPassword = $("#crmfPassword").val();
-
-                    if ( password != confirmPassword){
+                if(password != '' && confirmPassword != ''){
+                    if ( password != confirmPassword ) {
                         $("#CheckPasswordMatch").html("Passwords does not match!");
                         $("#CheckPasswordMatch").css("color", "red");
                         $(':button[type="submit"]').prop('disabled', true);
@@ -119,10 +118,14 @@
                         $("#CheckPasswordMatch").css("color","green");
                          $(':button[type="submit"]').prop('disabled', false);
                     }
+                }else{
+                    $("#CheckPasswordMatch").html("");
+                }
 
         }
         $(document).ready(function () {
             $("#password").keyup(checkPasswordMatch);
+            $("#crmfPassword").keyup(checkPasswordMatch);
         });
 </script>
 <%- include('layouts/footer') %>
