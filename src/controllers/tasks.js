@@ -1,20 +1,22 @@
 const Task = require("../models/Task.model");
-
+const randomize = require("randomatic");
 const createUser = async (req, res) => {
   try {
-    const {email, name, NIK, alamat, noTelp, password, saldo, noRek, pinATM} = req.body;
+    const {email, name, NIK, alamat, noTelp, password, saldo, pinATM} = req.body;
     const task = await Task.create({
         email,
         name,
         NIK,
         alamat,
         noTelp,
-        password,
+        password ,
         saldo,
-        noRek,
+        noRek: randomize("0", 10),
         pinATM,
     });
-    res.status(201).json({ task });
+    //console.log(randomize("0", 10));
+    // res.redirect('/')
+    res.status(201).json({ task })
   } catch (error) {
     res.status(500).json({ msg: error });
   }

@@ -12,6 +12,11 @@ const {
 
 router.route("/")
   .get(getAllUser)
+
+router.route("/add")
+  .get( (req, res) => {
+    res.render('register')}
+  )
   .post(createUser);
 router
   .route("/:id")
