@@ -1,20 +1,22 @@
 const Task = require("../models/Task.model");
-
+const randomize = require("randomatic");
 const createUser = async (req, res) => {
   try {
-    const {email, name, NIK, alamat, noTelp, password, saldo, noRek, pinATM} = req.body;
+    const {email, name, NIK, alamat, noTelp, password, saldo, pinATM} = req.body;
     const task = await Task.create({
         email,
         name,
         NIK,
         alamat,
         noTelp,
-        password,
+        password ,
         saldo,
-        noRek,
+        noRek: randomize("0", 10),
         pinATM,
     });
-    res.status(201).json({ task });
+    //console.log(randomize("0", 10));
+    // res.redirect('/')
+    res.status(201).json({ task })
   } catch (error) {
     res.status(500).json({ msg: error });
   }
@@ -23,7 +25,10 @@ const createUser = async (req, res) => {
 const getAllUser = async (req, res) => {
   try {
     const tasks = await Task.find({}); // bisa menggunakan filter pada argumen fungsi find()
-    res.status(200).json({ tasks });
+    res.render('allUser', {
+      users : tasks
+    })
+    // res.status(200).json({ tasks });
   } catch (error) {
     res.status(500).json({ msg: error });
   }
@@ -52,7 +57,8 @@ const deleteUser = async (req, res) => {
     if (!task) {
       return res.status(404).json({ msg: `No task with id: ${taskID}` });
     }
-    res.status(200).json({ task: null, status: "success" });
+    res.redirect('/user')
+    // res.status(200).json({ task: null, status: "success" });
   } catch (error) {
     res.status(500).json({ msg: error });
   }
@@ -60,6 +66,19 @@ const deleteUser = async (req, res) => {
 
 /* metode patch */
 // Update data diri user
+const getUpdateUser = async (req, res) => {
+  try {
+    const { id: taskID } = req.params;
+    const task = await Task.findOne({ _id: taskID });
+
+    res.render("update",{
+      user: task
+    });
+    // res.status(200).json({ task });
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
+};
 const updateUser = async (req, res) => {
   try {
     const { id: taskID } = req.params;
@@ -67,10 +86,8 @@ const updateUser = async (req, res) => {
       new: true,
       runValidators: true,
     });
-    if (!task) {
-      return res.status(404).json({ msg: `No task with id: ${taskID}` });
-    }
-    res.status(200).json({ task });
+    res.redirect("/user")
+    // res.status(200).json({ task });
   } catch (error) {
     res.status(500).json({ msg: error });
   }
@@ -96,4 +113,4 @@ const updateUser = async (req, res) => {
 
 
 
-module.exports = { createUser, getAllUser, getUser, updateUser, deleteUser };
+module.exports = { createUser, getAllUser, getUser, updateUser, getUpdateUser ,deleteUser };
