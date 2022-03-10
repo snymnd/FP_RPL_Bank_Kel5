@@ -25,10 +25,10 @@ const createUser = async (req, res) => {
 const getAllUser = async (req, res) => {
   try {
     const tasks = await Task.find({}); // bisa menggunakan filter pada argumen fungsi find()
-    res.render('allUser', {
-      users : tasks
-    })
-    // res.status(200).json({ tasks });
+    res.status(200).json({ tasks });
+    // res.render('allUser', {
+    //   users : tasks
+    // })
   } catch (error) {
     res.status(500).json({ msg: error });
   }
@@ -57,8 +57,8 @@ const deleteUser = async (req, res) => {
     if (!task) {
       return res.status(404).json({ msg: `No task with id: ${taskID}` });
     }
-    res.redirect('/user')
-    // res.status(200).json({ task: null, status: "success" });
+    res.status(200).json({ task: null, status: "success" });
+    // res.redirect('/user')
   } catch (error) {
     res.status(500).json({ msg: error });
   }
@@ -70,11 +70,11 @@ const getUpdateUser = async (req, res) => {
   try {
     const { id: taskID } = req.params;
     const task = await Task.findOne({ _id: taskID });
-
-    res.render("update",{
-      user: task
-    });
-    // res.status(200).json({ task });
+    
+    res.status(200).json({ task });
+    // res.render("update",{
+    //   user: task
+    // });
   } catch (error) {
     res.status(500).json({ msg: error });
   }
@@ -86,8 +86,8 @@ const updateUser = async (req, res) => {
       new: true,
       runValidators: true,
     });
-    res.redirect("/user")
-    // res.status(200).json({ task });
+    res.status(200).json({ task });
+    // res.redirect("/user")
   } catch (error) {
     res.status(500).json({ msg: error });
   }
