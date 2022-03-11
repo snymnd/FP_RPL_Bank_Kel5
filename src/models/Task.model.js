@@ -50,8 +50,8 @@ const TaskSchema = new mongoose.Schema({
   },
   pinATM:{
     type: String,
-    min: [6, "PIN minimal 4 karakter!"],
-    max: [6, "PIN maksimal 4 karakter!"],
+    min: [6, "PIN minimal 6 karakter!"],
+    max: [6, "PIN maksimal 6 karakter!"],
     required : [true, 'PIN ATM harus harus sesuai!']
   }
 });

@@ -1,6 +1,6 @@
 const Task = require("../models/Task.model");
 const randomize = require("randomatic");
-const createUser = async (req, res) => {
+const createUser = async (req, res, next) => {
   try {
     const {email, name, NIK, alamat, noTelp, password, saldo, pinATM} = req.body;
     const task = await Task.create({
@@ -18,11 +18,12 @@ const createUser = async (req, res) => {
     res.redirect('/')
     // res.status(201).json({ task })
   } catch (error) {
-    res.status(500).json({ msg: error });
+    next(error)
+    // res.status(500).json({ msg: error });
   }
 };
 
-const getAllUser = async (req, res) => {
+const getAllUser = async (req, res, next) => {
   try {
     const tasks = await Task.find({}); // bisa menggunakan filter pada argumen fungsi find()
     res.render('allUser', {
@@ -30,7 +31,7 @@ const getAllUser = async (req, res) => {
     })
     // res.status(200).json({ tasks });
   } catch (error) {
-    res.status(500).json({ msg: error });
+    next(error)
   }
 };
 
@@ -51,7 +52,7 @@ const getUser = async (req, res, next) => {
   }
 };
 
-const deleteUser = async (req, res) => {
+const deleteUser = async (req, res, next) => {
   try {
     const { id: taskID } = req.params;
     const task = await Task.findOneAndDelete({ _id: taskID });
@@ -61,13 +62,13 @@ const deleteUser = async (req, res) => {
     res.redirect('/user')
     // res.status(200).json({ task: null, status: "success" });
   } catch (error) {
-    res.status(500).json({ msg: error });
+    next(error)
   }
 };
 
 /* metode patch */
 // Update data diri user
-const getUpdateUser = async (req, res) => {
+const getUpdateUser = async (req, res, next) => {
   try {
     const { id: taskID } = req.params;
     const task = await Task.findOne({ _id: taskID });
@@ -77,10 +78,11 @@ const getUpdateUser = async (req, res) => {
     });
     // res.status(200).json({ task });
   } catch (error) {
-    res.status(500).json({ msg: error });
+    next(error)
+    // res.status(500).json({ msg: error });
   }
 };
-const updateUser = async (req, res) => {
+const updateUser = async (req, res, next) => {
   try {
     const { id: taskID } = req.params;
     const task = await Task.findOneAndUpdate({ _id: taskID }, req.body, {
@@ -90,7 +92,8 @@ const updateUser = async (req, res) => {
     res.redirect("/user/"+taskID)
     // res.status(200).json({ task });
   } catch (error) {
-    res.status(500).json({ msg: error });
+    next(error)
+    // res.status(500).json({ msg: error });
   }
 };
 

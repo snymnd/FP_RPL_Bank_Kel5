@@ -24,26 +24,31 @@ const createTransferSaldo = async (req, res, next) => {
     const { id: userID } = req.params;
     const pengirim = await Task.findOne({ _id: userID });
     const penerima = await Task.findOne({ noRek : req.body.rekening });
+    if(penerima == null){
+      const error = new Error();
+      error.message = "Rekening tujuan tidak ditemukan";
+      throw error;
+    }
     const nominal = parseInt(req.body.nominal);
     if (pengirim.saldo < nominal) {
-      const err = new Error();
-      err.message = "Saldo tidak cukup, silahkan isi saldo terlebih dahulu";
-      throw err;
+      const error = new Error;
+      error.message = "Saldo tidak cukup, silahkan isi saldo terlebih dahulu";
+      throw error;
     }
     if(req.body.pinATM != pengirim.pinATM){
-      const err = new Error();
-      err.message = "PIN salah";
-      throw err;
+      const error = new Error;
+      error.message = "PIN salah";
+      throw error;
     }
     let saldoAkhirPengirim = pengirim.saldo - nominal;
     let saldoAkhirPenerima = penerima.saldo + nominal;
     const updatePengirim = { saldo: saldoAkhirPengirim };
     const updatePenerima = { saldo: saldoAkhirPenerima };
-    await Task.findOneAndUpdate({ norek: pengirim.noRek }, updatePengirim, {
+    const newPengirim =  await Task.findOneAndUpdate({ norek: pengirim.noRek }, updatePengirim, {
         new: true,
         runValidators: true,
     });
-    await Task.findOneAndUpdate({ noRek: req.body.rekening }, updatePenerima, {
+    const newPenerima =  await Task.findOneAndUpdate({ noRek: req.body.rekening }, updatePenerima, {
         new: true,
         runValidators: true,
     });
@@ -64,9 +69,9 @@ const createTransferSaldo = async (req, res, next) => {
         nominal
     }
     const transaksi = await Transaksi.create(dataTransfer);
-    res.render("invoice", { transaksi, pengirim, penerima });
+    res.render("invoice", { transaksi, newPengirim, newPenerima });
     // res.status(201).json({ transaksi});
-    // res.render('transaction', { transaksi });
+
   } catch (error) {
     next(error);
   }
@@ -80,10 +85,16 @@ const createIsiSaldo = async (req, res, next ) => {
     const nominal = parseInt(req.body.nominal);
     let saldoAkhir = nasabah.saldo + nominal;
     const update = {saldo : saldoAkhir}
+    if (req.body.pinATM != nasabah.pinATM) {
+      const error = new Error();
+      error.message = "PIN salah";
+      throw error;
+    }
     await Task.findOneAndUpdate({ _id: userID }, update, {
       new: true,
       runValidators: true,
     });
+
     
     const dataTransfer = {
         jenis: "Isi",
@@ -108,7 +119,15 @@ const createTarikSaldo = async (req, res, next) => {
     const nasabah = await Task.findOne({ _id: userID });
     const nominal = parseInt(req.body.nominal);
     if (nasabah.saldo < nominal) {
-        return res.status(400).json({ msg: "saldo tidak cukup" });
+        const error = new Error();
+        error.message = "Saldo tidak cukup, silahkan isi saldo terlebih dahulu";
+        throw error;
+    }
+
+    if (req.body.pinATM != nasabah.pinATM) {
+      const error = new Error();
+      error.message = "PIN salah";
+      throw error;
     }
 
     let saldoAkhir = nasabah.saldo - nominal;
