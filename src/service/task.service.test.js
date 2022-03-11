@@ -14,7 +14,7 @@ describe("Task service", () => {
   };
 
   test("Shoud return created data with id of string", async () => {
-    const taskServiceInstance = new TaskService();
+    const taskServiceInstance = new TaskService(Task);
 
     Task.create = jest.fn().mockResolvedValue({
       id: "123",
