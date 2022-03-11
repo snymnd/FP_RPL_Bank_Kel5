@@ -7,6 +7,7 @@ dotenv.config()
 
 const port = process.env.PORT || 3000;
 
+const auth = require("./routes/auth.route");
 const index = require("./routes/index.route");
 const tasks = require("./routes/tasks.route");
 const saldo = require("./routes/saldo.route");
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //routes
 app.use("/", index);
+app.use("/auth", auth);
 app.use("/user", tasks);
 app.use("/saldo", saldo);
 app.use("/transaksi", transaksi);

@@ -1,95 +1,64 @@
 const bcrypt = require('bcrypt');
-
+const randomize = require("randomatic");
 
 // Require models folder 
 const User = require('../models/Task.model');
 
-
 // Registration 
-const registerController = (req, res, next) => {
-    bcrypt.hash(req.body.password, 10, (err, hash) => {
-        if(err) {
-            res.json ({
-                error: err 
-            })
-        }
-        let user = new User ({
-            email: req.body.email,
-            name: req.body.name,
-            password: hash,
-            NIK: req.body.NIK,
-            alamat: req.body.alamat,
-            noTelp: req.body.noTelp,
-            saldo: req.body.saldo,
-            noRek: randomize("0", 10),
-            pinATM: req.body.pinATM,
-           
-        })
-        user.save()
-            .then(result => {
-                res.status(201).json ({
-                    message: 'User created Successfully',
-                    user: result
-                })
-            })
-            .catch((err) => {
-                res.json ({
-                    err
-                })
-            })
-    })
+const registerController = async (req, res, next) => {
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+        const user = await User.create({
+          email: req.body.email,
+          name: req.body.name,
+          password: hashedPassword,
+          NIK: req.body.NIK,
+          alamat: req.body.alamat,
+          noTelp: req.body.noTelp,
+          saldo: req.body.saldo,
+          noRek: randomize("0", 10),
+          pinATM: req.body.pinATM,
+        });
+        return res.redirect('/')    
+    } catch (error) {
+        next(error)
+    }
 }
 
 // Login
-const loginController = (req, res, next) => {
-    let email = req.body.email
-    let password = req.body.password
+const loginController = async (req, res, next) => {
 
-    User.findOne ({
-        email
-    }).then((user) => {
-        if(user) {
-            bcrypt.compare(password, user.password, (err, result) => {
-                if(err) {
-                    res.json ({
-                        message: 'Error Occured'
-                    })
-                }
-                if(result) {
-                    res.json ({
-                        message: 'Login successfull'
-                    })
-                } else {
-                    res.json ({
-                        message: 'Login failed. password doesn\'t match' 
-                    })
-                }
-            })
+    try {
+        const email = req.body.email;
+        const password = req.body.password;
+        const user = await User.findOne({ email });
+        if (user) {
+        // check user password with hashed password stored in the database
+            const validPassword = await bcrypt.compare(password, user.password);
+            if (validPassword) {
+                res.redirect('/user/' + user._id)
+                // res.status(200).json({ message: "Login successfull" });
+            } else {
+                const error = new Error();
+                error.message = "Error Occured: Invalid Password";
+                throw error;
+                // res.status(400).json({ error: "Error Occured: Invalid Password" });
+            }
         } else {
-            res.json ({
-                message: 'User not found'
-            })
+            const error = new Error();
+            error.message = "User does not exist";
+            throw error;
+            // res.status(401).json({ error: "User does not exist" });
         }
-    })
-}
+        
+    } catch (error) {
+        next(error)
+    }
 
-
-const getAllUser = (req, res, next) => {
-    User.find()
-        .then(users => {
-            res.json ({
-                users
-            })
-        })
-        .catch(error => {
-            res.json ({
-                error
-            })
-        })
 }
 
 module.exports = {
     registerController,  
     loginController,  
-    getAllUser
 }

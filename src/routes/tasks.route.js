@@ -7,7 +7,7 @@ const {
   getUser,
   updateUser,
   deleteUser,
-  getSaldo,
+  // getSaldo,
   getUpdateUser
 } = require("../controllers/tasks");
 
@@ -15,12 +15,13 @@ router.route("/")
   .get(getAllUser)
   .post(createUser);
 
-
+// for frontend instance
 router.route("/add")
   .get( (req, res) => {
     res.render('register')}
   )
   .post(createUser);
+
 router
   .route("/:id")
   .get(getUser)
@@ -28,7 +29,7 @@ router
   .delete(deleteUser);
   // .put(editTask);
 
-//for html need
+//for html instance
 router
   .route("/update/:id")
   .get(getUpdateUser)
