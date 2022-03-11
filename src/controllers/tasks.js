@@ -39,7 +39,7 @@ const getUser = async (req, res, next) => {
     const { id: taskID } = req.params;
     const task = await Task.findOne({ _id: taskID },{
       password: 0,
-      _id:0
+      pinATM: 0
     });
     res.render("user",{
       user: task
@@ -87,7 +87,7 @@ const updateUser = async (req, res) => {
       new: true,
       runValidators: true,
     });
-    res.redirect("/user")
+    res.redirect("/user/"+taskID)
     // res.status(200).json({ task });
   } catch (error) {
     res.status(500).json({ msg: error });

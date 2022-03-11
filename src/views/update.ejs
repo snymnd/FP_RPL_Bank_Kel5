@@ -106,24 +106,28 @@
     </div>
 </div>
 <script>
-        function checkPasswordMatch() {
-                var password = $("#password").val();
-                var confirmPassword = $("#crmfPassword").val();
-
-                    if ( password != confirmPassword){
-                        $("#CheckPasswordMatch").html("Passwords does not match!");
-                        $("#CheckPasswordMatch").css("color", "red");
-                        $(':button[type="submit"]').prop('disabled', true);
-                    }
-                    else{
-                        $("#CheckPasswordMatch").html("Passwords match.");
-                        $("#CheckPasswordMatch").css("color","green");
-                         $(':button[type="submit"]').prop('disabled', false);
-                    }
-
+    function checkPasswordMatch() {
+        var password = $("#password").val();
+        var confirmPassword = $("#crmfPassword").val();
+        if (password != '' && confirmPassword != '') {
+            if (password != confirmPassword) {
+                $("#CheckPasswordMatch").html("Passwords does not match!");
+                $("#CheckPasswordMatch").css("color", "red");
+                $(':button[type="submit"]').prop('disabled', true);
+            }
+            else {
+                $("#CheckPasswordMatch").html("Passwords match.");
+                $("#CheckPasswordMatch").css("color", "green");
+                $(':button[type="submit"]').prop('disabled', false);
+            }
+        } else {
+            $("#CheckPasswordMatch").html("");
         }
-        $(document).ready(function () {
-            $("#password").keyup(checkPasswordMatch);
-        });
+
+    }
+    $(document).ready(function () {
+        $("#password").keyup(checkPasswordMatch);
+        $("#crmfPassword").keyup(checkPasswordMatch);
+    });
 </script>
 <%- include('layouts/footer') %>

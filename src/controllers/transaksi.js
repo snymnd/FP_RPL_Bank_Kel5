@@ -24,12 +24,15 @@ const createTransferSaldo = async (req, res, next) => {
     const { id: userID } = req.params;
     const pengirim = await Task.findOne({ _id: userID });
     const penerima = await Task.findOne({ noRek : req.body.rekening });
-    console.log(penerima);
-    console.log(pengirim);
     const nominal = parseInt(req.body.nominal);
     if (pengirim.saldo < nominal) {
       const err = new Error();
       err.message = "Saldo tidak cukup, silahkan isi saldo terlebih dahulu";
+      throw err;
+    }
+    if(req.body.pinATM != pengirim.pinATM){
+      const err = new Error();
+      err.message = "PIN salah";
       throw err;
     }
     let saldoAkhirPengirim = pengirim.saldo - nominal;

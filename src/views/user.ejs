@@ -9,10 +9,15 @@
                     clip-rule="evenodd"></path>
             </svg>
         </button>
-
     </a>
     <div class="p-16 ">
-        <div class="p-8 bg-white border border-solid border-teal-400  shadow mt-24 max-w-screen-md mx-auto">
+        <div class="relative p-8 bg-white border border-solid border-teal-400  shadow mt-24 max-w-screen-md mx-auto">
+            <a href="/user/update/<%= user._id %>" class="absolute -top-20 right-20 mr-3 mt-3">
+                <button type="button"
+                    class="absolute top-20 left-1/4 text-teal-600 border border-teal-600 hover:bg-teal-600 hover:text-white focus:ring-4 focus:ring-teal-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-teal-500 dark:text-teal-500 dark:hover:text-white dark:focus:ring-teal-800">
+                    <i class="fa fa-pen"> </i> Update
+                </button>
+            </a>
             <div class="grid grid-cols-1">
                 <div class="relative">
                     <div class="w-48 h-48 bg-indigo-100 mx-auto rounded-full overflow-hidden shadow-2xl absolute inset-x-0 -top-10 -mt-24 flex items-center justify-center text-indigo-500">
@@ -41,6 +46,19 @@
                         <h4><%= user.noTelp %></h4>
                     </li>
                 </ul>
+            </div>
+            <div class="flex flex-row space-x-5 justify-center items-center">
+                <a href="/transaksi/<%=user._id%>">
+                    <button class=" bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow hover:bg-teal-500">
+                    <i class="fa-solid fa-comment-dollar"></i> Lakukan Transaksi
+                    </button>
+                </a>
+                <a href="/transaksi/history/<%=user._id%>">
+                    <button
+                        class=" bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow hover:bg-slate-500">
+                        <i class="fa fa-book"></i> History Transaksi
+                    </button>
+                </a>
             </div>
         </div>
     </div>
