@@ -19,16 +19,16 @@ NRP | NAMA
 Aplikasi CRUD bank, yang terdiri dari CRUD User (Nasabah) dan CRUD Transaksi
 
 ### CRUD User ###
-**Create** : Create nasabah
-**Read** : Read data nasabah (profile) dan read saldo
-**Update** : Update/Edit data nasabah
-**Delete** : Delete data Nasabah
+**Create** : Create nasabah <br />
+**Read** : Read data nasabah (profile) dan read saldo <br />
+**Update** : Update/Edit data nasabah <br />
+**Delete** : Delete data Nasabah <br />
 
 ### CRUD Transaksi ###
-**Create** : Create Transaksi (isi saldo, tarik saldo, dan transfer)
-**Read** : Read riwayat transaksi
-**Update** : -
-**Delete** : -
+**Create** : Create Transaksi (isi saldo, tarik saldo, dan transfer) <br />
+**Read** : Read riwayat transaksi <br />
+**Update** : - <br />
+**Delete** : - <br />
 
 ## Dokumentasi Rest API ##
 Click [here](https://documenter.getpostman.com/view/18946285/UVsHUTtC) untuk menuju dokumentasi Rest API
