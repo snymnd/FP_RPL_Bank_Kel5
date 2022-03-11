@@ -28,11 +28,22 @@ app.use("/transaksi", transaksi);
 
 app.use('/', (req, res)=>{
   res.status(404)
-  return res.status(404).send({ success: false, message: "page not found" })
+  res.render("error", {
+    status : 404,
+    success: false,
+    message: "page not found",
+  });
+
 })
 
 app.use((err, req, res, next) => {
-  return res.status(500).send({ success: false, message: err.message })
+    res.status(500);
+    res.render("error", {
+      status: 500,
+      success: false,
+      message: err.message,
+    });
+  // return res.status(500).send({ success: false, message: err.message })
 })
 
 const start = async () => {

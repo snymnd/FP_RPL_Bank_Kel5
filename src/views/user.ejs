@@ -1,0 +1,66 @@
+<%- include('layouts/header') %>
+    <%- include('layouts/nav') %>
+    <a href="/">
+        <button type="button" 
+            class="absolute top-20 left-1/4 text-teal-600 border border-teal-600 hover:bg-teal-600 hover:text-white focus:ring-4 focus:ring-teal-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-teal-500 dark:text-teal-500 dark:hover:text-white dark:focus:ring-teal-800">
+            <svg class="w-5 h-5 rotate-180" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
+            </svg>
+        </button>
+    </a>
+    <div class="p-16 ">
+        <div class="relative p-8 bg-white border border-solid border-teal-400  shadow mt-24 max-w-screen-md mx-auto">
+            <a href="/user/update/<%= user._id %>" class="absolute -top-20 right-20 mr-3 mt-3">
+                <button type="button"
+                    class="absolute top-20 left-1/4 text-teal-600 border border-teal-600 hover:bg-teal-600 hover:text-white focus:ring-4 focus:ring-teal-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-teal-500 dark:text-teal-500 dark:hover:text-white dark:focus:ring-teal-800">
+                    <i class="fa fa-pen"> </i> Update
+                </button>
+            </a>
+            <div class="grid grid-cols-1">
+                <div class="relative">
+                    <div class="w-48 h-48 bg-indigo-100 mx-auto rounded-full overflow-hidden shadow-2xl absolute inset-x-0 -top-10 -mt-24 flex items-center justify-center text-indigo-500">
+                        <img src="https://source.unsplash.com/1080x1080/?people" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="mt-20 text-center border-b pb-12">
+                <div class="text-center mt-20 md:mt-10 mb-10">
+                    <p class="text-gray-400">SALDO</p>
+                    <p class="font-bold text-gray-700 text-xl">$<%= user.saldo %>
+                    </p>
+                </div>
+                <h1 class="text-4xl font-medium text-gray-700"><%= user.name %></h1>
+                <a href="<%= user.email %>" class="font-light text-gray-800 mt-2"><%= user.email %> </a>
+                <p class="font-light text-gray-600 mt-3"><%= user.alamat %> </p>
+            </div>
+            <div class="flex flex-col justify-center">
+                <ul role="list" class="divide-y divide-gray-200 text-center ">
+                    <li class="py-3 sm:py-4">
+                        <h3>Nomor Rekening</h3>
+                        <h4><%= user.noRek %></h4>
+                    </li>
+                    <li class="py-3 sm:py-4">
+                        <h3>Nomor Telepon</h3>
+                        <h4><%= user.noTelp %></h4>
+                    </li>
+                </ul>
+            </div>
+            <div class="flex flex-row space-x-5 justify-center items-center">
+                <a href="/transaksi/<%=user._id%>">
+                    <button class=" bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow hover:bg-teal-500">
+                    <i class="fa-solid fa-comment-dollar"></i> Lakukan Transaksi
+                    </button>
+                </a>
+                <a href="/transaksi/history/<%=user._id%>">
+                    <button
+                        class=" bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow hover:bg-slate-500">
+                        <i class="fa fa-book"></i> History Transaksi
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+<%- include('layouts/footer') %>
