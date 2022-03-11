@@ -15,8 +15,8 @@ const createUser = async (req, res, next) => {
         pinATM,
     });
     //console.log(randomize("0", 10));
-    res.redirect('/')
-    // res.status(201).json({ task })
+    res.status(201).json({ task })
+    // res.redirect('/')
   } catch (error) {
     next(error)
     // res.status(500).json({ msg: error });
@@ -26,10 +26,10 @@ const createUser = async (req, res, next) => {
 const getAllUser = async (req, res, next) => {
   try {
     const tasks = await Task.find({}); // bisa menggunakan filter pada argumen fungsi find()
-    res.render('allUser', {
-      users : tasks
-    })
-    // res.status(200).json({ tasks });
+    // res.render('allUser', {
+    //   users : tasks
+    // })
+    res.status(200).json({ tasks });
   } catch (error) {
     next(error)
   }
@@ -42,10 +42,10 @@ const getUser = async (req, res, next) => {
       password: 0,
       pinATM: 0
     });
-    res.render("user",{
-      user: task
-    })
-    // res.status(200).json({ task });
+    res.status(200).json({ task });
+    // res.render("user",{
+    //   user: task
+    // })
   } catch (error) {
     next(error)
     // res.status(500).json({ msg: error }); // untuk handle jika id nya tidak valid
@@ -59,8 +59,8 @@ const deleteUser = async (req, res, next) => {
     if (!task) {
       return res.status(404).json({ msg: `No task with id: ${taskID}` });
     }
-    res.redirect('/user')
-    // res.status(200).json({ task: null, status: "success" });
+    res.status(200).json({ task: null, status: "success" });
+    // res.redirect('/user')
   } catch (error) {
     next(error)
   }
@@ -73,10 +73,10 @@ const getUpdateUser = async (req, res, next) => {
     const { id: taskID } = req.params;
     const task = await Task.findOne({ _id: taskID });
 
-    res.render("update",{
-      user: task
-    });
-    // res.status(200).json({ task });
+    res.status(200).json({ task });
+    // res.render("update",{
+    //   user: task
+    // });
   } catch (error) {
     next(error)
     // res.status(500).json({ msg: error });

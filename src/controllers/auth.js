@@ -20,7 +20,8 @@ const registerController = async (req, res, next) => {
           noRek: randomize("0", 10),
           pinATM: req.body.pinATM,
         });
-        return res.redirect('/')    
+        res.status(201).json({ user });  
+        // return res.redirect('/')  
     } catch (error) {
         next(error)
     }
@@ -37,8 +38,8 @@ const loginController = async (req, res, next) => {
         // check user password with hashed password stored in the database
             const validPassword = await bcrypt.compare(password, user.password);
             if (validPassword) {
-                res.redirect('/user/' + user._id)
-                // res.status(200).json({ message: "Login successfull" });
+                res.status(200).json({ message: "Login successfull" , data: user});
+                // res.redirect('/user/' + user._id)
             } else {
                 const error = new Error();
                 error.message = "Error Occured: Invalid Password";

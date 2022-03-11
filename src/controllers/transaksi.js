@@ -69,8 +69,8 @@ const createTransferSaldo = async (req, res, next) => {
         nominal
     }
     const transaksi = await Transaksi.create(dataTransfer);
-    res.render("invoice", { transaksi, newPengirim, newPenerima });
-    // res.status(201).json({ transaksi});
+    res.status(201).json({ transaksi});
+    // res.render("invoice", { transaksi, newPengirim, newPenerima });
 
   } catch (error) {
     next(error);
@@ -103,9 +103,9 @@ const createIsiSaldo = async (req, res, next ) => {
         nominal
     }
     const transaksi = await Transaksi.create(dataTransfer);
-    res.render("invoice", { transaksi, pengirim : nasabah, penerima : undefined });
-    // return res.status(201).json({ transaksi });
-    // res.render("transaction", { transaksi });
+    return res.status(201).json({ transaksi });
+    // res.render("invoice", { transaksi, pengirim : nasabah, penerima : undefined });
+
   } catch (error) {
     next(error);
   }
@@ -144,8 +144,8 @@ const createTarikSaldo = async (req, res, next) => {
         nominal
     }
     const transaksi = await Transaksi.create(dataTransfer);
-    res.render("invoice", { transaksi, pengirim : nasabah, penerima : undefined });
-    // res.status(201).json({ transaksi });
+    res.status(201).json({ transaksi });
+    // res.render("invoice", { transaksi, pengirim : nasabah, penerima : undefined });
   } catch (error) {
     next(error);
   }
@@ -158,11 +158,11 @@ const getHistoryTransfer = async (req, res, next) => {
     const { id: userID } = req.params;
     const nasabah = await Task.findOne({ _id: userID });
     const transaksi = await Transaksi.find({$or:[{norek : nasabah.noRek}, {'pengirim.rekening':nasabah.noRek}, {'penerima.rekening': nasabah.noRek}]}); // bisa menggunakan filter pada argumen fungsi find()
-    res.render("history", { 
-      transactions : transaksi, 
-      user : nasabah 
-    });
-    // return res.status(200).json({ transaksi });
+    return res.status(200).json({ transaksi });
+    // res.render("history", { 
+    //   transactions : transaksi, 
+    //   user : nasabah 
+    // });
   } catch (error) {
     next(error);
   }
