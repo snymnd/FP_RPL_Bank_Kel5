@@ -89,8 +89,8 @@ const updateUser = async (req, res, next) => {
       new: true,
       runValidators: true,
     });
-    res.redirect("/user/"+taskID)
-    // res.status(200).json({ task });
+    res.status(200).json({ task });
+    // res.redirect("/user/"+taskID)
   } catch (error) {
     next(error)
     // res.status(500).json({ msg: error });
