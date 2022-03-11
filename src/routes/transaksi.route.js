@@ -6,10 +6,13 @@ const {
   createIsiSaldo,
   createTarikSaldo,
   getHistoryTransfer,
+  getTransaction,
 } = require("../controllers/transaksi");
 
-router.route("/:id").get(getHistoryTransfer);
-
+router.route("/:id")
+    .get(getTransaction)
+router.route("/history/:id")
+    .get(getHistoryTransfer);
 router.route("/transfer/:id")
     .post(createTransferSaldo)
     

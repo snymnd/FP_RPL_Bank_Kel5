@@ -20,24 +20,39 @@ const TaskSchema = new mongoose.Schema({
   },
   NIK:{
     type: Number,
+    unique: true,
+    required : [true, 'NIK Harus diisi!']
   },
   alamat:{
-    type: String
+    type: String,
+    required : [true, 'Alamat Harus diisi!']
   },
   noTelp:{
-    type: String
+    type: String,
+    unique: true,
+    required : [true, 'No Telp Harus diisi!']
   },
   password:{
-    type: String
+    type: String,
+    min: [6, "Password minimal 6 karakter!"],
+    max: [12, "Password maksimal 12 karakter!"],
+    length: [6, 12],
+    required : [true, 'Password Harus diisi!']
   },
   saldo:{
-    type: Number
+    type: Number,
+    required : [true, 'Saldo awal harus diberikan!']
   },
   noRek:{
-    type:String
+    type:String,
+    unique: true,
+    required : [true, 'Nomor Rekening harus digenreate!']
   },
   pinATM:{
-    type: String
+    type: String,
+    min: [6, "PIN minimal 4 karakter!"],
+    max: [6, "PIN maksimal 4 karakter!"],
+    required : [true, 'PIN ATM harus harus sesuai!']
   }
 });
 

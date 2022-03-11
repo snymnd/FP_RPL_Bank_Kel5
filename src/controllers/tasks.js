@@ -15,8 +15,8 @@ const createUser = async (req, res) => {
         pinATM,
     });
     //console.log(randomize("0", 10));
-    // res.redirect('/')
-    res.status(201).json({ task })
+    res.redirect('/')
+    // res.status(201).json({ task })
   } catch (error) {
     res.status(500).json({ msg: error });
   }
@@ -34,7 +34,7 @@ const getAllUser = async (req, res) => {
   }
 };
 
-const getUser = async (req, res) => {
+const getUser = async (req, res, next) => {
   try {
     const { id: taskID } = req.params;
     const task = await Task.findOne({ _id: taskID },{
@@ -46,7 +46,8 @@ const getUser = async (req, res) => {
     })
     // res.status(200).json({ task });
   } catch (error) {
-    res.status(500).json({ msg: error }); // untuk handle jika id nya tidak valid
+    next(error)
+    // res.status(500).json({ msg: error }); // untuk handle jika id nya tidak valid
   }
 };
 
