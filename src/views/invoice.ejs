@@ -1,0 +1,107 @@
+<%- include('layouts/header') %>
+    <%- include('layouts/nav') %>
+    <!-- component -->
+        <a href="/">
+            <button type="button"
+                class="absolute top-20 left-1/4 text-teal-600 border border-teal-600 hover:bg-teal-600 hover:text-white focus:ring-4 focus:ring-teal-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-teal-500 dark:text-teal-500 dark:hover:text-white dark:focus:ring-teal-800">
+                <svg class="w-5 h-5 rotate-180" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </a>
+
+    <section class="bg-gray-100 py-20">
+        <div class="max-w-2xl mx-auto py-0 md:py-16">
+            <article class="shadow-none md:shadow-md md:rounded-md overflow-hidden">
+                <div class="md:rounded-b-md  bg-white">
+                    <div class="p-9 border-b border-gray-200">
+                        <div class="space-y-6">
+                            <div class="flex justify-between items-top">
+                                <div class="space-y-4">
+                                    <p class="font-bold text-lg"> Invoice </p>
+                                    <p>BANK<span class="text-teal-500">CRUD</span> </p>
+                                </div>
+                                <div>
+                                    <img class="h-16 object-cover mb-4" src="/static/img/bc-logo.png">
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <div>
+                                    <p class="font-medium text-sm text-gray-400"> Invoice Number </p>
+                                    <p>
+                                        <%= transaksi._id %>
+                                    </p>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-medium text-sm text-gray-400"> Invoice Date </p>
+                                <p>
+                                    <%= transaksi.tanggal %>
+                                </p>
+                            </div>
+                            <div>
+                                <p class="font-medium text-sm text-gray-400"> Jenis Transaksi </p>
+                                <p>
+                                    <%= transaksi.jenis %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="w-full divide-y divide-gray-200 text-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="px-9 py-4 text-left font-semibold text-gray-400"> Pengirim </th>
+                                <% if (penerima !== undefined) { %>
+                                    <th scope="col" class="py-3 text-left font-semibold text-gray-400"> Penerima</th>
+                                    <th scope="col" class="py-3 text-left font-semibold text-gray-400"> </th>
+                                <% } %>
+                                <th scope="col" class="py-3 text-left font-semibold text-gray-400"> </th>
+                                <th scope="col" class="py-3 text-left font-semibold text-gray-400"> Nominal </th>
+
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td scope="col" class="px-9 py-5 whitespace-nowrap space-x-1 flex items-center">
+                                    <div>
+                                        <p> <%= pengirim.name %> </p>
+                                        <p class="text-sm text-gray-400"> <%= pengirim.noRek %></p>
+                                    </div>
+                                </td>
+                                <% if (penerima !== undefined) { %>
+                                    <td>
+                                        <div>
+                                            <p>
+                                                <%= penerima.name %>
+                                            </p>
+                                            <p class="text-sm text-gray-400">
+                                                <%= penerima.noRek %>
+                                            </p>
+                                        </div>
+                                    <td>
+                                <% } %>
+                                <td scope="col" class="py-3 text-left font-semibold text-gray-400"> </td>
+                                <td class="whitespace-nowrap text-gray-600 truncate"> <%= transaksi.nominal %> </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    
+                    <div class="p-9 border-b border-gray-200">
+                        <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <div>
+                                    <p class="font-bold text-black text-lg"> Amount Due </p>
+                                </div>
+                                <p class="font-bold text-black text-lg"> <%= transaksi.nominal %></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+<%- include('layouts/footer') %>
