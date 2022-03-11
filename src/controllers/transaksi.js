@@ -136,7 +136,11 @@ const getHistoryTransfer = async (req, res, next) => {
     const { id: userID } = req.params;
     const nasabah = await Task.findOne({ _id: userID });
     const transaksi = await Transaksi.find({$or:[{norek : nasabah.noRek}, {'pengirim.rekening':nasabah.noRek}, {'penerima.rekening': nasabah.noRek}]}); // bisa menggunakan filter pada argumen fungsi find()
-    return res.status(200).json({ transaksi });
+    res.render("history", { 
+      transactions : transaksi, 
+      user : nasabah 
+    });
+    // return res.status(200).json({ transaksi });
   } catch (error) {
     next(error);
   }

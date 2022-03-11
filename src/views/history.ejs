@@ -1,0 +1,52 @@
+<%- include('layouts/header') %>
+    <%- include('layouts/nav') %>
+    <a href="/">
+        <button type="button"
+            class="absolute top-20 left-1/4 text-teal-600 border border-teal-600 hover:bg-teal-600 hover:text-white focus:ring-4 focus:ring-teal-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-teal-500 dark:text-teal-500 dark:hover:text-white dark:focus:ring-teal-800">
+            <svg class="w-5 h-5 rotate-180" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
+            </svg>
+        </button>
+    </a>
+<div class="container max-w-screen-xl mx-auto">
+    <div class="max-w-screen-md mx-auto bg-white rounded-lg border shadow-md sm:p-8 ">
+        <div class="p-2 pt-8 flex justify-between items-center mb-4">
+            <h3 class="text-xl font-bold leading-none text-gray-900 "><span class="text-teal-400"><%= user.name %></span> Transaction History</h3>
+        </div>
+        <div class="flow-root">
+            <ul role="list" class="divide-y divide-gray-200 ">
+                <% transactions.forEach(transaction=> { %>
+                    <li class="py-3 sm:py-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="flex-1 w-64 ">
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-900 truncate ">
+                                        <%= transaction.jenis %>
+                                    </p>
+                                    <p class="text-sm text-gray-500 truncate ">
+                                        <%= transaction._id %>
+                                    </p>
+                                </div>
+                                <div class="inline-flex items-center text-base font-semibold text-gray-900 ">
+                                    <%= transaction.tanggal %>
+                                </div>
+                                <div class="items-center text-base font-semibold text-gray-900 ">
+                                    Amount: <%= transaction.nominal %>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <% }) %>
+
+            </ul>
+        </div>
+    </div>
+    <p class="mt-5">This card component is part of a larger, open-source library of Tailwind CSS components. Learn more
+        by going to the official <a class="text-blue-600 hover:underline"
+            href="https://flowbite.com/docs/getting-started/introduction/" target="_blank">Flowbite Documentation</a>.
+    </p>
+</div>
+
+<%- include('layouts/footer') %>
